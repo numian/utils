@@ -1,9 +1,11 @@
 import sys, urllib2, base64, re
 import xml.etree.ElementTree as ET
 
+
 def printFlush(msg):
     print msg
     sys.stdout.flush()
+
 
 def getTagName(element):
     return element.tag[element.tag.rfind('}')+1:].title()
@@ -15,7 +17,6 @@ def addAuthHeader(request, user, password):
 
 
 def checkElementSitemap(element, user = '', password = ''):
-    
     for child in element:
         if getTagName(child) == 'Loc':
             loadSitemap(child.text, user, password)
@@ -44,9 +45,8 @@ def checkElementUrl(element, user = '', password = ''):
                                     data_len,
                                     url))
         
-        
     except urllib2.URLError, e:
-        printFlush('NOK %s %s -' % (e.code, url))
+        printFlush('NOK %s - %s' % (e.code, url))
 
 
 def parseSitemap(xml_text, user = '', password = ''):
