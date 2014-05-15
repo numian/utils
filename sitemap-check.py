@@ -40,13 +40,13 @@ def checkElementUrl(element, user = '', password = ''):
             msg = 'NOK'
         
         printFlush('%s %s %s %s' % (msg,
-                                     resource.getcode(),
-                                     data_len,
-                                     url))
+                                    resource.getcode(),
+                                    data_len,
+                                    url))
         
         
     except urllib2.URLError, e:
-        printFlush('NOK %s: %s' % (url, e.code))
+        printFlush('NOK %s %s' % (url, e.code))
 
 
 def parseSitemap(xml_text, user = '', password = ''):
