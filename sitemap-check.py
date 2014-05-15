@@ -46,7 +46,7 @@ def checkElementUrl(element, user = '', password = ''):
         
         
     except urllib2.URLError, e:
-        printFlush('NOK %s %s' % (url, e.code))
+        printFlush('NOK %s %s -' % (e.code, url))
 
 
 def parseSitemap(xml_text, user = '', password = ''):
