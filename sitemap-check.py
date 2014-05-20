@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys, urllib2, base64, re
 import xml.etree.ElementTree as ET
 
@@ -81,7 +83,11 @@ def loadSitemap(url, user = '', password = ''):
     
     parseSitemap(resource.read(), user, password)
     
-    
+
+# get list of check functions
+function_pattern = re.compile('^checkElement.+$')
+check_functions = { f:getattr(sys.modules[__name__], f) for f in dir(sys.modules[__name__]) if function_pattern.search(f) }    
+
 
 if __name__ == '__main__':
     
@@ -91,10 +97,6 @@ if __name__ == '__main__':
         print "No url defined"
         print "Usage: python sitemap-check.py url [username] [password]"
     else:
-        
-        # get list of check functions
-        function_pattern = re.compile('^checkElement.+$')
-        check_functions = { f:getattr(sys.modules[__name__], f) for f in dir(sys.modules[__name__]) if function_pattern.search(f) }
         
         if arg_len == 2:
             loadSitemap(sys.argv[1])
