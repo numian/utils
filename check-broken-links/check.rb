@@ -33,7 +33,7 @@ begin
       
       response = http.head link
       
-      if response.code != '0'
+      if response.code != '200'
         puts "#{response.code} #{uri.scheme}://#{uri.host}#{link}"
       end
       
