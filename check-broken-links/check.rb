@@ -29,13 +29,14 @@ begin
   uri = URI.parse ARGV[0]
   
   links.each do |link|
-    Net::HTTP.start(uri.host, uri.port) do |http|
+  
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = uri.scheme == 'https'
+  
+    http.start do |session|
+      response = session.head link
       
-      response = http.head link
-      
-      if response.code != '200'
-        puts "#{response.code} #{uri.scheme}://#{uri.host}#{link}"
-      end
+      puts "#{response.code} #{uri.scheme}://#{uri.host}#{link}" unless ['200', '302'].include? response.code
       
     end
   end
